@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import './Form.css';
 import {useTelegram} from "../../Hooks/useTelegram";
 
-const Form = () => {
+const Form2 = () => {
     const [name, setCountry] = useState('');
     const [repos, setStreet] = useState('');
     const [subject, setSubject] = useState('physical');
