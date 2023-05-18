@@ -5,17 +5,19 @@ import {useTelegram} from "../../Hooks/useTelegram";
 const Form = () => {
     const [country, setCountry] = useState('');
     const [street, setStreet] = useState('');
+    const [city, setCity] = useState('');
     const [subject, setSubject] = useState('physical');
     const {tg} = useTelegram();
 
     const onSendData = useCallback(() => {
         const data = {
             country,
+            city,
             street,
             subject
         }
         tg.sendData(JSON.stringify(data));
-    }, [country, street, subject])
+    }, [country,city, street, subject])
 
     useEffect(() => {
         tg.onEvent('mainButtonClicked', onSendData)
@@ -36,7 +38,7 @@ const Form = () => {
         } else {
             tg.MainButton.show();
         }
-    }, [country, street])
+    }, [country,street])
 
     const onChangeCountry = (e) => {
         setCountry(e.target.value)
@@ -44,6 +46,9 @@ const Form = () => {
 
     const onChangeStreet = (e) => {
         setStreet(e.target.value)
+    }
+    const onChangeCity = (e) => {
+        setCity(e.target.value)
     }
 
     const onChangeSubject = (e) => {
@@ -66,6 +71,13 @@ const Form = () => {
                 placeholder={'Улица'}
                 value={street}
                 onChange={onChangeStreet}
+            />
+            <input
+                className={'input'}
+                type="text"
+                placeholder={'Город'}
+                value={city}
+                onChange={onChangeCity}
             />
             <select value={subject} onChange={onChangeSubject} className={'select'}>
                 <option value={'physical'}>Физ. лицо</option>
